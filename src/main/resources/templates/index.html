@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ripple Shooter</title>
+    <style>
+        body { margin: 0; background: #111; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .game-container { display: flex; gap: 40px; align-items: flex-start; }
+        
+        /* キャンバスを包むコンテナ（ボタンの基準点にする） */
+        .canvas-wrapper { position: relative; }
+        canvas { border: 2px solid #444; background: #000; box-shadow: 0 0 30px rgba(0,255,255,0.1); cursor: crosshair; }
+        
+        /* リセットボタンのスタイル */
+        #resetBtn {
+            display: none; 
+            position: absolute; 
+            top: 65%; left: 50%; 
+            transform: translate(-50%, -50%);
+            padding: 20px 40px; font-size: 24px; 
+            background: #00ffff; color: #000; border: none; 
+            cursor: pointer; font-weight: bold; border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0,255,255,0.6);
+            z-index: 10; /* 最前面に表示 */
+            transition: transform 0.2s, background 0.2s;
+        }
+        #resetBtn:hover { background: #ffffff; transform: translate(-50%, -50%) scale(1.05); }
+
+        /* 遊び方パネルのスタイル */
+        #howToPanel { width: 320px; padding: 25px; background: rgba(255, 255, 255, 0.05); border-left: 4px solid #00ffff; border-radius: 4px; }
+        #howToPanel h3 { color: #00ffff; margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 12px; letter-spacing: 2px; }
+        .instruction-item { margin-bottom: 15px; font-size: 15px; line-height: 1.6; color: #ccc; }
+        .highlight { color: #ffff00; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- 左側：メインゲームエリア -->
+        <div class="canvas-wrapper">
+            <h1 style="text-align: center; font-weight: 200; letter-spacing: 5px; margin-top: 0;">RIPPLE SHOOTER</h1>
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            
+            <!-- リセットボタン（キャンバスの上に重なる） -->
+            <button id="resetBtn" onclick="sendReset()">NEXT STAGE</button>
+        </div>
+
+        <!-- 右側：サイドパネル（遊び方） -->
+        <div id="howToPanel">
+            <h3 id="ruleTitle">LOADING RULES...</h3>
+            <div id="instructionList">
+                <!-- ここに動的にルールが追加されます -->
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/game.js}"></script>
+</body>
+</html>
